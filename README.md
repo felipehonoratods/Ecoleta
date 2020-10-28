@@ -37,7 +37,7 @@ Ecoleta is a marketplace that helps people find waste collection points efficien
 
 ## 🔖 Layout
 
-You can view the project layout in the format through [desse link](https://www.figma.com/file/9TlOcj6l7D05fZhU12xWT3/Ecoleta-Booster?node-id=0%3A1). Remembering that you will need to have a [Figma](http://figma.com/) account.
+You can view the project layout in the format through [of this link](https://www.figma.com/file/9TlOcj6l7D05fZhU12xWT3/Ecoleta-Booster?node-id=0%3A1). Remembering that you will need to have a [Figma](http://figma.com/) account.
 
 ## :memo: License
 
