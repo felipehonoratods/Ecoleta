@@ -6,6 +6,8 @@ import axios from 'axios';
 import { LeafletMouseEvent } from 'leaflet';
 import api from '../../services/api';
 
+import Dropzone from '../../components/Dropzone';
+
 import './styles.css';
 
 import logo from '../../assets/logo.svg';
@@ -41,6 +43,7 @@ const CreatePoint = () => {
   const [selectedCity, setSelectedCity] = useState('0');
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+  const [selectedFile, setSelectedFile] = useState<File>();
 
   const history = useHistory();
 
@@ -135,6 +138,10 @@ const CreatePoint = () => {
     data.append('uf', uf);
     data.append('items', items.join(','));
 
+    if(selectedFile) {
+      data.append('image', selectedFile);
+    }
+
     await api.post('/points', data);
 
     alert('Ponto de coleta criado!');
@@ -155,6 +162,8 @@ const CreatePoint = () => {
 
         <form onSubmit={handleSubmit}>
           <h1>Cadastro do <br /> ponto de coleta</h1>
+
+          <Dropzone onFileUploaded={setSelectedFile} />
 
           <fieldset>
             <legend>
@@ -198,14 +207,16 @@ const CreatePoint = () => {
               <span>Selecione o endereço no mapa</span>
             </legend>
 
-            <MapContainer eventHandlers={{click: handleMapClick}} center={initialPosition} zoom={15}>
-              <TileLayer 
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
+            {initialPosition[0] !== 0 && (
+              <MapContainer eventHandlers={{click: handleMapClick}} center={initialPosition} zoom={15}>
+                <TileLayer 
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
 
-              <Marker position={selectedPosition}/>
-            </MapContainer>
+                <Marker position={selectedPosition}/>
+              </MapContainer>
+            )}
 
             <div className="field-group">
               <div className="field">
